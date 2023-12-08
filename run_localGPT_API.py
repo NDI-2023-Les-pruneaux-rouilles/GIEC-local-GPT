@@ -6,6 +6,7 @@ import argparse
 
 import torch
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 
@@ -76,6 +77,7 @@ QA = RetrievalQA.from_chain_type(
 )
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.route("/api/delete_source", methods=["GET"])
